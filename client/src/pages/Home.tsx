@@ -153,10 +153,7 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Trust Message */}
-            <p className="text-xs text-muted-foreground pt-4 border-t border-border">
-              ✓ Use this page to book directly — the old Google website link may not load correctly.
-            </p>
+
           </div>
 
           {/* Hero Image */}
@@ -181,29 +178,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BOOKING FIX BANNER */}
-      <section className="bg-card border-y border-border py-8 md:py-12">
-        <div className="container">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Book without the broken link.</h2>
-              <p className="text-muted-foreground text-lg">
-                The old website link may trigger a browser warning. This page sends you straight to the live Booksy booking page.
-              </p>
-            </div>
-            <div className="flex justify-center md:justify-end">
-              <a
-                href={BOOKSY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-premium"
-              >
-                Open live booking page
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* SERVICES SECTION */}
       <section id="services" className="py-20 md:py-32">
