@@ -42,11 +42,9 @@ export default function Home() {
         <div className="container flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <img
-              src="/manus-storage/bespoke-logo_3cebfd23.webp"
-              alt="Bespoke Studios"
-              className="h-10 w-auto"
-            />
+            <div className="text-xl font-bold tracking-wider">
+              <span className="text-primary">BESPOKE</span>
+            </div>
           </div>
 
           {/* Desktop Nav */}
@@ -347,11 +345,9 @@ export default function Home() {
         <div className="container">
           <div className="grid md:grid-cols-4 gap-8 mb-12">
             <div>
-              <img
-                src="/manus-storage/bespoke-logo_3cebfd23.webp"
-                alt="Bespoke Studios"
-                className="h-8 w-auto mb-4"
-              />
+              <h3 className="text-lg font-bold mb-4">
+                <span className="text-primary">BESPOKE</span>
+              </h3>
               <p className="text-sm text-muted-foreground">
                 Premium grooming studio in Middlesbrough.
               </p>
