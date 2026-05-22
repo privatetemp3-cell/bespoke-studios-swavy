@@ -5,10 +5,11 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 /**
  * DESIGN SYSTEM: Bespoke Studios by Swavy
- * Premium minimalist barber studio with BOLD MOTION
- * Color Palette: Dark charcoal (#0f0f0f) + Champagne Gold (#d4af37) + Electric Teal (#00d9ff)
+ * Elegant, timeless barber branding with premium motion
+ * Color Palette: Classic Black (#000000) + Pure White (#ffffff) + Light Gray (#f8f8f8)
  * Typography: Playfair Display (headings) + Poppins (body)
  * Motion: Scroll reveals, parallax, hover animations, entrance effects
+ * Logo: Official Bespoke Studios by Swavy logo (black & white)
  */
 
 const BOOKSY_URL = 'https://booksy.com/en-gb/170447_bespoke-studios-by-swavy_barber_515951_middlesbrough?rwg_token=AFd1xnEPE4FoZS6fPkRgum78nYE66ttpbjQ00hMQGefRBCbH8SHSbUgvpUguMlwZGnhc2ott4jWB1_BCZGq_-uwfIdZKbMjKoA%3D%3D#ba_s=seo';
@@ -54,10 +55,11 @@ export default function Home() {
         <div className="container flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-secondary to-primary rounded-lg flex items-center justify-center">
-              <span className="text-background font-bold text-lg">S</span>
-            </div>
-            <span className="hidden sm:block font-bold text-lg tracking-tight">Bespoke</span>
+            <img
+              src="/manus-storage/bespoke-logo_3cebfd23.webp"
+              alt="Bespoke Studios by Swavy"
+              className="h-12 w-auto"
+            />
           </div>
 
           {/* Desktop Navigation */}
@@ -109,19 +111,11 @@ export default function Home() {
 
       {/* HERO SECTION */}
       <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-        {/* Background with gradient and image */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663668560240/i6d5BfHNDxKVKrxeaWtBm7/hero-barber-abstract-BueFsuESigoXjuUyqAEokV.webp"
-            alt="Premium barber background"
-            className="w-full h-full object-cover"
-            style={{
-              transform: `translateY(${scrollY * 0.5}px)`,
-              transition: 'transform 0.1s linear'
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
-        </div>
+        {/* Background with elegant gradient */}
+        <div className="absolute inset-0 z-0 bg-gradient-to-br from-white via-gray-50 to-gray-100"></div>
+        
+        {/* Decorative accent line */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-black/5 rounded-full blur-3xl"></div>
 
         {/* Hero Content */}
         <div className="container relative z-10 grid md:grid-cols-2 gap-8 items-center">
@@ -187,8 +181,8 @@ export default function Home() {
                 alt="Premium barber cut"
                 className="w-full rounded-2xl shadow-2xl glow-primary hero-float"
               />
-              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
-              <div className="absolute -top-8 -left-8 w-40 h-40 bg-secondary/10 rounded-full blur-3xl"></div>
+              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-black/5 rounded-full blur-3xl"></div>
+              <div className="absolute -top-8 -left-8 w-40 h-40 bg-black/5 rounded-full blur-3xl"></div>
             </div>
           </div>
         </div>
@@ -276,7 +270,7 @@ export default function Home() {
       </section>
 
       {/* GALLERY / WORK SECTION */}
-      <section id="gallery" className="py-20 md:py-32 bg-card">
+      <section id="gallery" className="py-20 md:py-32 bg-gray-50">
         <div className="container">
           <ScrollReveal className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Recent Work</h2>
@@ -403,7 +397,7 @@ export default function Home() {
       </section>
 
       {/* ABOUT / BRAND SECTION */}
-      <section className="py-20 md:py-32 bg-card">
+      <section className="py-20 md:py-32 bg-white">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <ScrollReveal>
@@ -418,7 +412,7 @@ export default function Home() {
               </p>
             </ScrollReveal>
             <ScrollReveal className="relative hidden md:block">
-              <div className="w-full aspect-square bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl flex items-center justify-center border border-border">
+              <div className="w-full aspect-square bg-gradient-to-br from-black/5 to-black/10 rounded-2xl flex items-center justify-center border border-border">
                 <div className="text-center">
                   <div className="text-6xl font-bold gradient-text mb-4">EST. 2020</div>
                   <p className="text-muted-foreground">Middlesbrough's premium grooming studio</p>
@@ -510,7 +504,7 @@ export default function Home() {
       </section>
 
       {/* FINAL CTA SECTION */}
-      <section className="py-20 md:py-32 bg-card border-t border-border">
+      <section className="py-20 md:py-32 bg-gray-50 border-t border-border">
         <div className="container text-center">
           <ScrollReveal>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready for the next cut?</h2>
@@ -537,12 +531,11 @@ export default function Home() {
         <div className="container">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-secondary to-primary rounded-lg flex items-center justify-center">
-                  <span className="text-background font-bold text-sm">S</span>
-                </div>
-                <span className="font-bold">Bespoke</span>
-              </div>
+              <img
+                src="/manus-storage/bespoke-logo_3cebfd23.webp"
+                alt="Bespoke Studios by Swavy"
+                className="h-10 w-auto mb-4"
+              />
               <p className="text-sm text-muted-foreground">Premium grooming studio in Middlesbrough.</p>
             </div>
 
