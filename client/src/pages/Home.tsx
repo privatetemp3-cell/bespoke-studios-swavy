@@ -1,16 +1,37 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Star, MapPin, Phone, Facebook, Instagram, ChevronDown } from 'lucide-react';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 /**
  * DESIGN SYSTEM: Bespoke Studios by Swavy
- * Premium minimalist barber studio with bold visual impact
+ * Premium minimalist barber studio with BOLD MOTION
  * Color Palette: Dark charcoal (#0f0f0f) + Champagne Gold (#d4af37) + Electric Teal (#00d9ff)
  * Typography: Playfair Display (headings) + Poppins (body)
- * Motion: Smooth scroll reveals, hover animations, premium transitions
+ * Motion: Scroll reveals, parallax, hover animations, entrance effects
  */
 
 const BOOKSY_URL = 'https://booksy.com/en-gb/170447_bespoke-studios-by-swavy_barber_515951_middlesbrough?rwg_token=AFd1xnEPE4FoZS6fPkRgum78nYE66ttpbjQ00hMQGefRBCbH8SHSbUgvpUguMlwZGnhc2ott4jWB1_BCZGq_-uwfIdZKbMjKoA%3D%3D#ba_s=seo';
+
+// Scroll reveal component wrapper
+function ScrollReveal({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  const { ref, isVisible } = useScrollReveal();
+  return (
+    <div ref={ref} className={`scroll-reveal ${isVisible ? 'visible' : ''} ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+// Staggered scroll reveal for list items
+function StaggeredReveal({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  const { ref, isVisible } = useScrollReveal();
+  return (
+    <div ref={ref} className={`scroll-reveal-stagger ${isVisible ? 'visible' : ''} ${className}`}>
+      {children}
+    </div>
+  );
+}
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -94,6 +115,10 @@ export default function Home() {
             src="https://d2xsxph8kpxj0f.cloudfront.net/310519663668560240/i6d5BfHNDxKVKrxeaWtBm7/hero-barber-abstract-BueFsuESigoXjuUyqAEokV.webp"
             alt="Premium barber background"
             className="w-full h-full object-cover"
+            style={{
+              transform: `translateY(${scrollY * 0.5}px)`,
+              transition: 'transform 0.1s linear'
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
         </div>
@@ -103,22 +128,22 @@ export default function Home() {
           <div className="space-y-8">
             {/* Main Headline */}
             <div className="space-y-4">
-              <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+              <h1 className="text-5xl md:text-7xl font-bold leading-tight animate-fade-in-up">
                 Precision grooming,
                 <span className="gradient-text"> built around your image.</span>
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground font-light">
+              <p className="text-xl md:text-2xl text-muted-foreground font-light animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
                 Sharp fades. Clean line-ups. Bespoke style.
               </p>
             </div>
 
             {/* Hero Subtext */}
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-md">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-md animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               Bespoke Studios by Swavy is a Middlesbrough grooming studio for men and boys who want a clean cut, sharp finish, and a look that feels intentional.
             </p>
 
             {/* Trust Badges */}
-            <div className="flex flex-wrap gap-6 pt-4">
+            <div className="flex flex-wrap gap-6 pt-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
               <div className="flex items-center gap-2">
                 <div className="flex gap-1">
                   {[...Array(5)].map((_, i) => (
@@ -136,7 +161,7 @@ export default function Home() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
               <a
                 href={BOOKSY_URL}
                 target="_blank"
@@ -152,17 +177,15 @@ export default function Home() {
                 View services
               </a>
             </div>
-
-
           </div>
 
-          {/* Hero Image */}
+          {/* Hero Image with Float Animation */}
           <div className="hidden md:block relative">
             <div className="relative z-10">
               <img
                 src="https://d2xsxph8kpxj0f.cloudfront.net/310519663668560240/i6d5BfHNDxKVKrxeaWtBm7/hero-barber-portrait-dark-gz3WoRifdhZu5kz6yDUn4G.webp"
                 alt="Premium barber cut"
-                className="w-full rounded-2xl shadow-2xl glow-primary"
+                className="w-full rounded-2xl shadow-2xl glow-primary hero-float"
               />
               <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
               <div className="absolute -top-8 -left-8 w-40 h-40 bg-secondary/10 rounded-full blur-3xl"></div>
@@ -178,72 +201,76 @@ export default function Home() {
         </div>
       </section>
 
-
-
       {/* SERVICES SECTION */}
       <section id="services" className="py-20 md:py-32">
         <div className="container">
-          <div className="text-center mb-16">
+          <ScrollReveal className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Premium Services</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Precision grooming tailored to your style. Every service is crafted with attention to detail.
             </p>
-          </div>
+          </ScrollReveal>
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Service Card 1 */}
-            <div className="card-premium">
-              <div className="mb-4">
-                <h3 className="text-2xl font-bold mb-2">Adult Hair Cut</h3>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-bold text-primary">£25</span>
-                  <span className="text-muted-foreground">40 min</span>
+            <StaggeredReveal className="service-card">
+              <div className="card-premium">
+                <div className="mb-4">
+                  <h3 className="text-2xl font-bold mb-2">Adult Hair Cut</h3>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-3xl font-bold text-primary">£25</span>
+                    <span className="text-muted-foreground">40 min</span>
+                  </div>
                 </div>
+                <p className="text-muted-foreground mb-6">
+                  Sharp, tailored cuts finished with precision.
+                </p>
+                <a href={BOOKSY_URL} target="_blank" rel="noopener noreferrer" className="btn-primary w-full text-center text-sm">
+                  Book this service
+                </a>
               </div>
-              <p className="text-muted-foreground mb-6">
-                Sharp, tailored cuts finished with precision.
-              </p>
-              <a href={BOOKSY_URL} target="_blank" rel="noopener noreferrer" className="btn-premium w-full text-center text-sm">
-                Book this service
-              </a>
-            </div>
+            </StaggeredReveal>
 
             {/* Service Card 2 - Featured */}
-            <div className="card-premium md:scale-105 md:shadow-2xl md:shadow-primary/30 relative">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-xs font-bold">
-                FEATURED
-              </div>
-              <div className="mb-4">
-                <h3 className="text-2xl font-bold mb-2">Adult Hair & Beard</h3>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-bold text-primary">£30</span>
-                  <span className="text-muted-foreground">40 min</span>
+            <StaggeredReveal className="service-card">
+              <div className="card-premium md:scale-105 md:shadow-2xl md:shadow-primary/30 relative">
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-xs font-bold">
+                  FEATURED
                 </div>
+                <div className="mb-4">
+                  <h3 className="text-2xl font-bold mb-2">Adult Hair & Beard</h3>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-3xl font-bold text-primary">£30</span>
+                    <span className="text-muted-foreground">40 min</span>
+                  </div>
+                </div>
+                <p className="text-muted-foreground mb-6">
+                  A complete grooming finish — hair, beard, shape and detail.
+                </p>
+                <a href={BOOKSY_URL} target="_blank" rel="noopener noreferrer" className="btn-primary w-full text-center text-sm">
+                  Book this service
+                </a>
               </div>
-              <p className="text-muted-foreground mb-6">
-                A complete grooming finish — hair, beard, shape and detail.
-              </p>
-              <a href={BOOKSY_URL} target="_blank" rel="noopener noreferrer" className="btn-premium w-full text-center text-sm">
-                Book this service
-              </a>
-            </div>
+            </StaggeredReveal>
 
             {/* Service Card 3 */}
-            <div className="card-premium">
-              <div className="mb-4">
-                <h3 className="text-2xl font-bold mb-2">Teen Hair Cut</h3>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-bold text-primary">£17</span>
-                  <span className="text-muted-foreground">40 min</span>
+            <StaggeredReveal className="service-card">
+              <div className="card-premium">
+                <div className="mb-4">
+                  <h3 className="text-2xl font-bold mb-2">Teen Hair Cut</h3>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-3xl font-bold text-primary">£17</span>
+                    <span className="text-muted-foreground">40 min</span>
+                  </div>
                 </div>
+                <p className="text-muted-foreground mb-6">
+                  Clean, confident cuts for young men and boys.
+                </p>
+                <a href={BOOKSY_URL} target="_blank" rel="noopener noreferrer" className="btn-primary w-full text-center text-sm">
+                  Book this service
+                </a>
               </div>
-              <p className="text-muted-foreground mb-6">
-                Clean, confident cuts for young men and boys.
-              </p>
-              <a href={BOOKSY_URL} target="_blank" rel="noopener noreferrer" className="btn-premium w-full text-center text-sm">
-                Book this service
-              </a>
-            </div>
+            </StaggeredReveal>
           </div>
         </div>
       </section>
@@ -251,12 +278,12 @@ export default function Home() {
       {/* GALLERY / WORK SECTION */}
       <section id="gallery" className="py-20 md:py-32 bg-card">
         <div className="container">
-          <div className="text-center mb-16">
+          <ScrollReveal className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Recent Work</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               A lookbook of precision grooming. Each cut tells a story of style and craftsmanship.
             </p>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             {/* Gallery Item 1 */}
@@ -337,17 +364,17 @@ export default function Home() {
       {/* REVIEWS SECTION */}
       <section id="reviews" className="py-20 md:py-32">
         <div className="container">
-          <div className="text-center mb-16">
+          <ScrollReveal className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Trusted by Clients</h2>
             <p className="text-muted-foreground text-lg">100 verified reviews on Booksy</p>
-          </div>
+          </ScrollReveal>
 
           {/* Main Stats */}
-          <div className="bg-card rounded-2xl p-8 md:p-12 border border-border mb-12 text-center">
+          <ScrollReveal className="bg-card rounded-2xl p-8 md:p-12 border border-border mb-12 text-center">
             <div className="text-6xl md:text-7xl font-bold gradient-text mb-4">5.0</div>
             <p className="text-2xl font-semibold mb-2">100 verified reviews</p>
             <p className="text-muted-foreground text-lg">Built on precision, consistency and trust.</p>
-          </div>
+          </ScrollReveal>
 
           {/* Review Cards */}
           <div className="grid md:grid-cols-3 gap-6">
@@ -359,15 +386,17 @@ export default function Home() {
               'Excellent Service',
               'Serious cut'
             ].map((review, i) => (
-              <div key={i} className="card-premium">
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, j) => (
-                    <Star key={j} size={16} className="fill-secondary text-secondary" />
-                  ))}
+              <StaggeredReveal key={i} className="review-card">
+                <div className="card-premium">
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(5)].map((_, j) => (
+                      <Star key={j} size={16} className="fill-secondary text-secondary" />
+                    ))}
+                  </div>
+                  <p className="text-lg font-semibold mb-4">{review}</p>
+                  <p className="text-xs text-muted-foreground">Verified Booksy client</p>
                 </div>
-                <p className="text-lg font-semibold mb-4">{review}</p>
-                <p className="text-xs text-muted-foreground">Verified Booksy client</p>
-              </div>
+              </StaggeredReveal>
             ))}
           </div>
         </div>
@@ -377,7 +406,7 @@ export default function Home() {
       <section className="py-20 md:py-32 bg-card">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+            <ScrollReveal>
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
                 Changing perspectives through bespoke grooming precision.
               </h2>
@@ -387,15 +416,15 @@ export default function Home() {
               <p className="text-muted-foreground italic">
                 "Every cut is a reflection of your confidence. We're here to make sure it's sharp."
               </p>
-            </div>
-            <div className="relative hidden md:block">
+            </ScrollReveal>
+            <ScrollReveal className="relative hidden md:block">
               <div className="w-full aspect-square bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl flex items-center justify-center border border-border">
                 <div className="text-center">
                   <div className="text-6xl font-bold gradient-text mb-4">EST. 2020</div>
                   <p className="text-muted-foreground">Middlesbrough's premium grooming studio</p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -403,73 +432,79 @@ export default function Home() {
       {/* LOCATION SECTION */}
       <section id="location" className="py-20 md:py-32">
         <div className="container">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">Visit Us</h2>
+          <ScrollReveal className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold">Visit Us</h2>
+          </ScrollReveal>
 
           <div className="grid md:grid-cols-2 gap-12">
             {/* Location Info */}
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-2xl font-bold mb-4">Bespoke Studios by Swavy</h3>
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <MapPin size={20} className="text-primary mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="font-semibold">21a Hartington Road</p>
-                      <p className="text-muted-foreground">Middlesbrough, TS1 5ED</p>
+            <ScrollReveal>
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-2xl font-bold mb-4">Bespoke Studios by Swavy</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <MapPin size={20} className="text-primary mt-1 flex-shrink-0" />
+                      <div>
+                        <p className="font-semibold">21a Hartington Road</p>
+                        <p className="text-muted-foreground">Middlesbrough, TS1 5ED</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href="https://www.google.com/maps/search/21a+Hartington+Road+Middlesbrough+TS1+5ED"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-secondary text-center"
-                >
-                  Get directions
-                </a>
-                <a
-                  href={BOOKSY_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-premium text-center"
-                >
-                  Book before you arrive
-                </a>
-              </div>
-
-              {/* Social Links */}
-              <div className="pt-8 border-t border-border">
-                <p className="text-sm font-semibold text-muted-foreground mb-4">Follow us</p>
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <a
-                    href="https://www.facebook.com/swavygrooming/"
+                    href="https://www.google.com/maps/search/21a+Hartington+Road+Middlesbrough+TS1+5ED"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-card rounded-lg hover:bg-primary/10 transition-colors"
+                    className="btn-secondary text-center"
                   >
-                    <Facebook size={20} className="text-primary" />
+                    Get directions
                   </a>
                   <a
-                    href="#"
-                    className="p-3 bg-card rounded-lg hover:bg-primary/10 transition-colors opacity-50 cursor-not-allowed"
+                    href={BOOKSY_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-premium text-center"
                   >
-                    <Instagram size={20} className="text-primary" />
+                    Book before you arrive
                   </a>
                 </div>
+
+                {/* Social Links */}
+                <div className="pt-8 border-t border-border">
+                  <p className="text-sm font-semibold text-muted-foreground mb-4">Follow us</p>
+                  <div className="flex gap-4">
+                    <a
+                      href="https://www.facebook.com/swavygrooming/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 bg-card rounded-lg hover:bg-primary/10 transition-colors"
+                    >
+                      <Facebook size={20} className="text-primary" />
+                    </a>
+                    <a
+                      href="#"
+                      className="p-3 bg-card rounded-lg hover:bg-primary/10 transition-colors opacity-50 cursor-not-allowed"
+                    >
+                      <Instagram size={20} className="text-primary" />
+                    </a>
+                  </div>
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Map Placeholder */}
-            <div className="bg-card rounded-2xl overflow-hidden border border-border h-96 flex items-center justify-center">
-              <div className="text-center">
-                <MapPin size={48} className="text-primary mx-auto mb-4" />
-                <p className="text-muted-foreground">21a Hartington Road</p>
-                <p className="text-muted-foreground">Middlesbrough, TS1 5ED</p>
+            <ScrollReveal>
+              <div className="bg-card rounded-2xl overflow-hidden border border-border h-96 flex items-center justify-center">
+                <div className="text-center">
+                  <MapPin size={48} className="text-primary mx-auto mb-4" />
+                  <p className="text-muted-foreground">21a Hartington Road</p>
+                  <p className="text-muted-foreground">Middlesbrough, TS1 5ED</p>
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -477,21 +512,23 @@ export default function Home() {
       {/* FINAL CTA SECTION */}
       <section className="py-20 md:py-32 bg-card border-t border-border">
         <div className="container text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready for the next cut?</h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Book directly through Swavy's live Booksy page.
-          </p>
-          <a
-            href={BOOKSY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-premium inline-block mb-8"
-          >
-            Book directly here
-          </a>
-          <p className="text-sm text-muted-foreground">
-            5.0 rated · 100 Booksy reviews · Middlesbrough
-          </p>
+          <ScrollReveal>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready for the next cut?</h2>
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Book directly through Swavy's live Booksy page.
+            </p>
+            <a
+              href={BOOKSY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-premium inline-block mb-8"
+            >
+              Book directly here
+            </a>
+            <p className="text-sm text-muted-foreground">
+              5.0 rated · 100 Booksy reviews · Middlesbrough
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
